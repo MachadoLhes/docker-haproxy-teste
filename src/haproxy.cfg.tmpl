@@ -1,6 +1,6 @@
 global
     log 127.0.0.1 local0 notice
-    
+
 defaults
     log global
     retries 2
@@ -9,9 +9,9 @@ defaults
     timeout client 5000
 
 listen mysql-cluster
-    bind 127.0.0.1:9090
+    bind 0.0.0.0:{{.HAPROXY_MYSQL_SOURCE_PORT}}
     mode tcp
     timeout client  10800s
     timeout server  10800s
     balance roundrobin
-    server mysql 127.0.0.1:3306
+    server mysql {{.HAPROXY_MYSQL_TARGET_IP}}:{{.HAPROXY_MYSQL_TARGET_PORT}}
